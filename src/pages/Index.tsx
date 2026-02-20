@@ -2,7 +2,7 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const HERO_IMG = "https://cdn.poehali.dev/projects/eb64c14c-102e-4beb-838b-913c6b7ba42b/files/6277179b-e66b-45db-b64f-bfd5f75d1166.jpg";
 const PROMO_IMG = "https://cdn.poehali.dev/projects/eb64c14c-102e-4beb-838b-913c6b7ba42b/files/d8b12757-11b3-4d38-859c-56ea9fa73fa6.jpg";
@@ -289,25 +289,20 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Service Detail Dialog */}
-      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-sans flex items-center gap-3">
-              {selectedService && (
-                <>
-                  <div className="w-10 h-10 rounded-xl gradient-card flex items-center justify-center">
-                    <Icon name={selectedService.icon} size={20} className="text-primary" />
-                  </div>
-                  {selectedService.title}
-                </>
-              )}
-            </DialogTitle>
-          </DialogHeader>
-          {selectedService && (
+      {selectedService && (
+        <Dialog open={true} onOpenChange={() => setSelectedService(null)}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="font-sans flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl gradient-card flex items-center justify-center">
+                  <Icon name={selectedService.icon} size={20} className="text-primary" />
+                </div>
+                {selectedService.title}
+              </DialogTitle>
+              <DialogDescription>{selectedService.description}</DialogDescription>
+            </DialogHeader>
             <div className="space-y-4">
               <Badge variant="outline">{selectedService.category}</Badge>
-              <p className="text-muted-foreground leading-relaxed">{selectedService.description}</p>
               <div className="bg-muted rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Стоимость</p>
@@ -325,9 +320,9 @@ const Index = () => {
                 Заказать услугу
               </Button>
             </div>
-          )}
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
